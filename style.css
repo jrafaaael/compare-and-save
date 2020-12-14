@@ -1,0 +1,480 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap");
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --white-color: #f1faee;
+    --primary-color: #1a2037;
+    --add-color: #3a97d4;
+    --add-clicked: #46b5ff;
+    --delete-btn: #e63946;
+    --delete-clicked: #ff4a59;
+    --confirm-color: #37af65;
+    --confirm-clicked: #1fff75;
+}
+
+/* General */
+
+body {
+    font-family: "Rubik", sans-serif;
+    background-color: var(--white-color);
+    color: #141414;
+    font-size: clamp(1rem, 2.25vw, 1.25rem);
+    letter-spacing: 0.075rem;
+}
+
+section,
+section > div,
+form,
+input,
+.para p {
+    border-radius: 10px;
+}
+
+section,
+form,
+.addBtn,
+.deleteBtn,
+.confirmBtn,
+input,
+tbody tr:first-child td div span {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.308);
+}
+
+th,
+tfoot td,
+.para p:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+.container section:not(:last-child) {
+    margin-bottom: 2rem;
+}
+
+/* main */
+
+.container {
+    width: 95%;
+    margin: 2rem auto;
+}
+
+.box,
+.fbox {
+    width: 100%;
+    height: min-content;
+    /* animation: expand 250ms cubic-bezier(0.68, -0.55, 0.265, 1.55); */
+    animation: expand 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fbox {
+    display: flex;
+    flex-direction: column;
+}
+
+.titleContainer,
+.dropDown {
+    background-color: var(--primary-color);
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    text-align: center;
+    color: var(--add-color);
+    font-weight: 900;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+}
+
+.store,
+.nameStore {
+    margin-left: auto;
+}
+
+input {
+    width: 65%;
+    height: 2.5rem;
+    background-color: var(--white-color);
+    font-size: clamp(1rem, 2.25vw, 1.25rem);
+    padding: 0 0 0 10px;
+    outline: none;
+    border: none;
+}
+
+input:active,
+input:focus {
+    border-color: var(--add-clicked);
+    box-shadow: 0 0 0 0.2rem var(--add-color);
+}
+
+.dropDown {
+    padding: 0.35rem;
+    cursor: pointer;
+    /* order: 4; */
+}
+
+.arrow {
+    width: 24px;
+    height: 14.5px;
+    position: relative;
+}
+
+.arrow .line {
+    width: 15px;
+    top: 50%;
+    bottom: 50%;
+    display: inline-block;
+    position: absolute;
+    transition-duration: 300ms;
+}
+
+.arrow .line:first-child {
+    left: 0;
+    transform: rotate(45deg);
+}
+
+.arrow .line:last-child {
+    right: 0;
+    transform: rotate(-45deg);
+}
+
+.arrow .line.up:first-child {
+    transform: rotate(-45deg);
+}
+
+.arrow .line.up:last-child {
+    transform: rotate(45deg);
+}
+
+.results {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 225ms ease-in-out;
+}
+
+/* Buttons */
+
+.addBtn,
+.deleteBtn,
+.confirmBtn {
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* transition: all 250ms ease-in-out; */
+    transition: all 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.addBtn {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    background-color: var(--add-color);
+    bottom: 4%;
+    right: 2.5%;
+    z-index: 2;
+}
+
+.titleContainer .addBtn,
+.deleteBtn,
+.confirmBtn {
+    width: 35px;
+    height: 35px;
+}
+
+.titleContainer .addBtn {
+    position: static;
+}
+
+.titleContainer .deleteBtn {
+    background-color: var(--delete-btn);
+    margin-left: 0.25rem;
+}
+
+.confirmBtn {
+    position: relative;
+    background-color: var(--confirm-color);
+}
+
+.titleContainer .addBtn,
+.titleContainer .confirmBtn {
+    margin-left: auto;
+}
+
+.addBtn:active,
+.addBtn:focus {
+    background-color: var(--add-clicked);
+}
+
+.deleteBtn:active,
+.deleteBtn:focus {
+    background-color: var(--delete-clicked);
+}
+
+.confirmBtn:active,
+.confirmBtn:focus {
+    background-color: var(--confirm-clicked);
+}
+
+/* Lines inside buttons */
+
+.line {
+    width: 21px;
+    height: 3px;
+    background-color: var(--white-color);
+    border-radius: 2px;
+    /* transition: all 250ms ease-in-out; */
+    transition: all 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.addBtn .line:first-child {
+    transform: rotate(90deg);
+    position: absolute;
+}
+
+.addBtn:hover .line:first-child,
+.deleteBtn:hover .line {
+    transform: rotate(180deg);
+}
+
+.addBtn:hover .line:nth-child(2) {
+    transform: rotate(90deg);
+}
+
+.confirmBtn .line:first-child {
+    position: absolute;
+    left: 7.6px;
+    bottom: 11px;
+    width: 10px;
+    transform: rotate(60deg);
+}
+
+.confirmBtn .line:nth-child(2) {
+    position: absolute;
+    right: 5px;
+    transform: rotate(120deg);
+}
+
+.confirmBtn:hover {
+    transform: rotate(360deg);
+}
+
+/* Paragraf of results */
+
+.para p {
+    padding: 0.875rem;
+    padding-left: 1.75rem;
+}
+
+/* Table and tabular data*/
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid rgba(190, 190, 190, 0.514);
+    padding: 10px;
+}
+
+.results table td,
+.results table th {
+    padding: 10px 0;
+}
+
+tfoot td {
+    font-weight: 500;
+}
+
+td {
+    text-align: center;
+}
+
+/* tr:hover {
+    background-color: rgb(230, 230, 230);
+} */
+
+table input {
+    width: 100%;
+    height: 2rem;
+}
+
+table .deleteBtn,
+table .confirmBtn {
+    width: 35px;
+    height: 35px;
+    margin: auto;
+}
+
+table .deleteBtn {
+    background-color: var(--delete-btn);
+}
+
+table .confirmBtn {
+    background-color: var(--confirm-color);
+}
+
+table .confirmBtn .line:first-child {
+    left: 7.6px;
+    bottom: 11px;
+    width: 10px;
+    transform: rotate(60deg);
+}
+
+table .confirmBtn .line:nth-child(2) {
+    right: 5px;
+    transform: rotate(120deg);
+}
+
+/* class added with js*/
+
+.noHover .line {
+    transition: none;
+}
+
+.addDisabled {
+    box-shadow: none;
+    background-color: #99bcd3;
+}
+
+.deleteBtn.noHover.deleteDisabled {
+    box-shadow: none;
+    background-color: #f8939b;
+}
+
+.addDisabled:active,
+.addDisabled:focus {
+    background-color: currentColor;
+}
+
+.isEmpty:active,
+.isEmpty:focus {
+    border-color: var(--delete-clicked);
+    box-shadow: 0 0 0 0.2rem var(--delete-btn);
+}
+
+/* Media Queries */
+
+@media all and (min-width: 400px) {
+    .titleContainer .addBtn,
+    .deleteBtn,
+    .confirmBtn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .confirmBtn .line:first-child {
+        left: 15.5px;
+        bottom: 19px;
+        width: 10px;
+        transform: rotate(60deg);
+    }
+
+    .confirmBtn .line:nth-child(2) {
+        right: 12px;
+        transform: rotate(120deg);
+    }
+}
+
+@media all and (min-width: 600px) {
+    .container {
+        width: 92.5%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .container section:not(:last-child) {
+        margin: 0;
+    }
+
+    .dropDown {
+        padding: 0.5rem;
+    }
+
+    tr:hover {
+        background-color: rgb(230, 230, 230);
+    }
+}
+
+@media all and (min-width: 1024px) {
+    .titleContainer .addBtn,
+    .deleteBtn,
+    .confirmBtn {
+        width: 35px;
+        height: 35px;
+    }
+    .confirmBtn .line:first-child {
+        left: 7.6px;
+        bottom: 11px;
+        width: 10px;
+        transform: rotate(60deg);
+    }
+
+    .confirmBtn .line:nth-child(2) {
+        right: 5px;
+        transform: rotate(120deg);
+    }
+
+    .container {
+        /* grid-template-columns: repeat(6, 0.5fr); */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+
+    /* .container .box:first-of-type {
+        grid-column: 1/3;
+    } */
+
+    .box:not(:first-child) .title {
+        font-size: clamp(1.3rem, 3.3vw, 2rem);
+    }
+
+    .nameStore {
+        min-width: 70%;
+    }
+}
+
+@media all and (min-width: 1025px) {
+    .titleContainer .addBtn,
+    .deleteBtn,
+    .confirmBtn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .confirmBtn .line:first-child {
+        left: 15.5px;
+        bottom: 19px;
+        width: 10px;
+        transform: rotate(60deg);
+    }
+
+    .confirmBtn .line:nth-child(2) {
+        right: 12px;
+        transform: rotate(120deg);
+    }
+
+    .container .box .title {
+        font-size: clamp(1.6rem, 4vw, 2.4rem);
+    }
+}
+
+@keyframes expand {
+    from {
+        transform: scale(0);
+        opacity: 0;
+        /* background: #5470b0; */
+    }
+}
